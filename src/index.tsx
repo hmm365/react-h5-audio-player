@@ -110,6 +110,7 @@ interface PlayerProps {
   i18nAriaLabels?: I18nAriaLabels
   children?: ReactNode
   style?: CSSProperties
+  audioType?:string
 }
 
 interface CustomIcons {
@@ -682,6 +683,7 @@ class H5AudioPlayer extends Component<PlayerProps> {
       children,
       style,
       i18nAriaLabels = H5AudioPlayer.defaultI18nAriaLabels,
+      audioType
     } = this.props
     const loop = this.audio.current ? this.audio.current.loop : loopProp
     const loopClass = loop ? 'rhap_loop--on' : 'rhap_loop--off'
@@ -703,7 +705,7 @@ class H5AudioPlayer extends Component<PlayerProps> {
         {/* User can pass <track> through children */}
         {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
         <audio
-          src={src}
+          // src={src}
           controls={false}
           loop={loop}
           autoPlay={autoPlay}
@@ -712,6 +714,7 @@ class H5AudioPlayer extends Component<PlayerProps> {
           mediaGroup={mediaGroup}
           ref={this.audio}
         >
+          <source src={url} type={audioType} />
           {children}
         </audio>
         {header && <div className="rhap_header">{header}</div>}
